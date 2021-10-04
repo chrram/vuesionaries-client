@@ -4,7 +4,7 @@
       >You have ordered {{ cups }} cups of coffee</text
     >
     <image
-      :style="{ width: 100, height: 100 }"
+      :style="{width: 100, height: 100}"
       :source="{
         uri: 'https://64.media.tumblr.com/389eab7635fa3a13d04cb945e1974a73/tumblr_ml5xhbUWC21qg6rkio1_500.gifv',
       }"
@@ -27,38 +27,30 @@ const firebaseConfig = {
 export default {
   data() {
     return {
-      cups: 0
+      cups: 0,
     };
   },
 
-  methods: {
-  },
-   async mounted() {
+  methods: {},
+  async mounted() {
     if (!firebase.default.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
 
     dbRef = firebase.default.firestore().collection('coffees');
-      dbRef
-        .doc('9IpwtC8Qh1jrlJ3STbrP')
-       try {
+    dbRef.doc('9IpwtC8Qh1jrlJ3STbrP');
+    try {
       const documents = await dbRef.onSnapshot((querySnapshot) => {
-        console.log("här query snapchsot");
-
         querySnapshot.docChanges().forEach((change) => {
-          console.log(change.doc.data().numberOrdered, "test")
-
-          this.cups = change.doc.data().numberOrdered
+          console.log(change.doc.data().numberOrdered, 'test');
+          this.cups = change.doc.data().numberOrdered;
         });
       });
     } catch (error) {
-      console.log(error, "error");
+      console.log(error, 'error');
     }
-
-    
-  }
+  },
 };
-
 </script>
 
 <style>
@@ -73,5 +65,3 @@ export default {
   padding: 45;
 }
 </style>
-
-
