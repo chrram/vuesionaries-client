@@ -36,13 +36,11 @@ export default {
     if (!firebase.default.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
-
     dbRef = firebase.default.firestore().collection('coffees');
     dbRef.doc('9IpwtC8Qh1jrlJ3STbrP');
     try {
       const documents = await dbRef.onSnapshot((querySnapshot) => {
         querySnapshot.docChanges().forEach((change) => {
-          console.log(change.doc.data().numberOrdered, 'test');
           this.cups = change.doc.data().numberOrdered;
         });
       });
